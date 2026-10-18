@@ -1,0 +1,31 @@
+echo ------------------------------------------
+echo =      GM BASE DO ZERO - APPSYNC RP      =
+echo ------------------------------------------
+
+lanmode 0
+rcon_password CHANGE_ME
+maxplayers 50
+bind 0.0.0.0
+port 7777
+hostname AppSync RP
+password
+language Portugues - Brasil
+
+gamemode0 appsync 1
+filterscripts
+
+announce 0
+query 1
+weburl https://example.invalid
+mapname San Andreas
+chatradius 20.0
+chatlogging 1
+lagcompmode 1
+
+onfoot_rate 40
+incar_rate 40
+weapon_rate 40
+stream_distance 300.0
+stream_rate 250
+maxnpc 0
+logtimeformat [%d/%m/%Y %H:%M:%S]

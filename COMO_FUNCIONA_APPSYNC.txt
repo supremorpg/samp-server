@@ -1,0 +1,78 @@
+COMO FUNCIONA A GM APPSYNC RP
+
+Esta base foi feita para mostrar o jeito certo de ligar APK/IDE com uma GM
+SA-MP sem deixar o jogador mandar no servidor.
+
+1. O que o APK faz
+
+O APK mostra telas bonitas, como inventario, celular e organizacao.
+Quando o jogador clica em algum botao, o APK nao altera dinheiro, vida ou item
+sozinho. Ele apenas envia um comando para o servidor.
+
+Exemplos:
+- Abrir inventario: /app inv
+- Usar item: /app useitem 0
+- Abrir celular: /app phone
+- Mandar mensagem: /app phone_send 1001 ola
+
+2. O que a GM faz
+
+A GM recebe o comando e valida tudo:
+- o slot existe?
+- o item existe?
+- o jogador tem quantidade?
+- o item pode ser usado?
+- a acao respeitou o rate limit?
+
+So depois disso a GM aplica o efeito.
+
+3. Exemplo real do inventario
+
+O jogador abre o inventario no APK.
+O APK envia:
+
+/app inv
+
+A GM responde para o APK:
+
+APP|inventory.reset|{"cash":500}
+APP|inventory.slot|{"slot":0,"id":1,"name":"Kit medico","amount":2,"usable":1}
+APP|inventory.slot|{"slot":1,"id":2,"name":"Celular","amount":1,"usable":1}
+APP|inventory.slot|{"slot":2,"id":3,"name":"Radio","amount":1,"usable":1}
+APP|inventory.slot|{"slot":3,"id":4,"name":"Agua","amount":3,"usable":1}
+
+O APK le isso e preenche a tela.
+
+4. Exemplo real do botao Usar
+
+O jogador clica em Usar no slot 3.
+O APK envia:
+
+/app useitem 3
+
+A GM olha o slot 3, ve que e Agua, diminui a quantidade e manda a tela
+sincronizar de novo.
+
+5. Por que isso evita hack
+
+Porque o client nunca fala:
+"me de 999 de dinheiro"
+ou
+"eu tenho 10 agua"
+ou
+"minha vida agora e 100"
+
+O client so pede:
+"quero usar o slot 3"
+
+Quem decide se pode ou nao e sempre a GM.
+
+6. Proximo passo profissional
+
+Para virar uma GM maior, o proximo passo e salvar estes dados:
+- arquivo simples para teste
+- SQLite para projeto pequeno
+- MySQL para servidor publico
+
+Mas a regra continua igual:
+interface pede, servidor valida, servidor responde.
